@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,45 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				amber: {
+					'50': '#fffbeb',
+					'100': '#fef3c7',
+					'200': '#fde68a',
+					'300': '#fcd34d',
+					'400': '#fbbf24',
+					'500': '#f59e0b',
+					'600': '#d97706',
+					'700': '#b45309',
+					'800': '#92400e',
+					'900': '#78350f',
+					'950': '#451a03',
+				},
+				burgundy: {
+					'50': '#fdf2f8',
+					'100': '#fce7f3',
+					'200': '#fbcfe8',
+					'300': '#f9a8d4',
+					'400': '#f472b6',
+					'500': '#ec4899',
+					'600': '#db2777',
+					'700': '#be185d',
+					'800': '#9d174d',
+					'900': '#831843',
+					'950': '#500724',
+				},
+				wood: {
+					'50': '#faf7f2',
+					'100': '#f3ece0',
+					'200': '#e6d7bf',
+					'300': '#d5ba94',
+					'400': '#c49c6a',
+					'500': '#b78049',
+					'600': '#a8683e',
+					'700': '#8c5434',
+					'800': '#72442f',
+					'900': '#5d3828',
+					'950': '#331c14',
 				}
 			},
 			borderRadius: {
