@@ -24,6 +24,7 @@ import Profile from "./pages/Profile";
 import Dashboard from "./pages/admin/Dashboard";
 import Inventory from "./pages/admin/Inventory";
 import Orders from "./pages/admin/Orders";
+import Payments from "./pages/admin/Payments";
 
 const queryClient = new QueryClient();
 
@@ -99,6 +100,14 @@ const App = () => (
                 element={
                   <ProtectedRoute requireAdmin={true}>
                     <Orders />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/admin/payments" 
+                element={
+                  <ProtectedRoute requireAdmin={true}>
+                    <Payments />
                   </ProtectedRoute>
                 } 
               />

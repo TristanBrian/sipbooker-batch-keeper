@@ -8,7 +8,8 @@ import {
   CreditCard, 
   Users, 
   Settings, 
-  LogOut 
+  LogOut,
+  Phone
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: '/admin', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { path: '/admin/inventory', label: 'Inventory', icon: <Package size={20} /> },
     { path: '/admin/orders', label: 'Orders', icon: <ShoppingCart size={20} /> },
-    { path: '/admin/payments', label: 'Payments', icon: <CreditCard size={20} /> },
+    { path: '/admin/payments', label: 'M-Pesa Payments', icon: <Phone size={20} /> },
     { path: '/admin/customers', label: 'Customers', icon: <Users size={20} /> },
     { path: '/admin/settings', label: 'Settings', icon: <Settings size={20} /> },
   ];

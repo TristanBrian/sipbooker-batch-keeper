@@ -10,8 +10,11 @@ import {
   ShoppingCart, 
   CreditCard, 
   TrendingUp,
-  AlertCircle
+  AlertCircle,
+  Phone,
+  Users
 } from 'lucide-react';
+import { MpesaPaymentInfo } from '@/components/admin/MpesaPaymentInfo';
 
 const Dashboard = () => {
   const orders = getOrders();
@@ -42,6 +45,17 @@ const Dashboard = () => {
     name,
     amount
   }));
+
+  // Sample user activity data
+  const userActivity = [
+    { date: 'Mon', visits: 45, purchases: 20 },
+    { date: 'Tue', visits: 52, purchases: 28 },
+    { date: 'Wed', visits: 60, purchases: 32 },
+    { date: 'Thu', visits: 50, purchases: 24 },
+    { date: 'Fri', visits: 65, purchases: 38 },
+    { date: 'Sat', visits: 75, purchases: 42 },
+    { date: 'Sun', visits: 68, purchases: 36 },
+  ];
   
   return (
     <AdminLayout>
@@ -78,7 +92,7 @@ const Dashboard = () => {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${totalRevenue.toFixed(2)}</div>
+              <div className="text-2xl font-bold">KSH {(totalRevenue * 150).toLocaleString()}</div>
               <p className="text-xs text-muted-foreground mt-1">
                 From paid orders
               </p>
@@ -100,17 +114,13 @@ const Dashboard = () => {
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Popular Category</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Active Customers</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold capitalize">
-                {salesChartData.length > 0 
-                  ? salesChartData.sort((a, b) => b.amount - a.amount)[0].name 
-                  : 'N/A'}
-              </div>
+              <div className="text-2xl font-bold">152</div>
               <p className="text-xs text-muted-foreground mt-1">
-                Based on sales volume
+                +12 in the last 7 days
               </p>
             </CardContent>
           </Card>
@@ -130,103 +140,139 @@ const Dashboard = () => {
           </Card>
         )}
         
-        <Card className="col-span-4">
-          <CardHeader>
-            <CardTitle>Sales by Category</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={salesChartData}
-                  margin={{
-                    top: 20,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip 
-                    formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Sales']}
-                  />
-                  <Bar dataKey="amount" fill="#f59e0b" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Orders</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {orders.length > 0 ? (
-                <div className="space-y-4">
-                  {orders.slice(0, 5).map((order) => (
-                    <div key={order.id} className="flex justify-between items-center border-b pb-2 last:border-0">
-                      <div>
-                        <p className="font-medium">#{order.id} - {order.customerName}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {new Date(order.createdAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-medium">${order.totalAmount.toFixed(2)}</p>
-                        <span className={`text-xs ${
-                          order.status === 'completed' ? 'text-green-600' : 
-                          order.status === 'cancelled' ? 'text-red-600' : 
-                          'text-amber-600'
-                        }`}>
-                          {order.status}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+          <div className="space-y-6">
+            <Card className="col-span-1">
+              <CardHeader>
+                <CardTitle>Sales by Category</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={salesChartData}
+                      margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip 
+                        formatter={(value) => [`KSH ${(Number(value) * 150).toLocaleString()}`, 'Sales']}
+                      />
+                      <Bar dataKey="amount" fill="#f59e0b" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
-              ) : (
-                <p className="text-center text-muted-foreground py-4">No orders yet</p>
-              )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            <MpesaPaymentInfo />
+          </div>
           
-          <Card>
-            <CardHeader>
-              <CardTitle>Low Stock Products</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {lowStockItems > 0 ? (
-                <div className="space-y-4">
-                  {products
-                    .filter(product => product.stock < 10)
-                    .slice(0, 5)
-                    .map((product) => (
-                      <div key={product.id} className="flex justify-between items-center border-b pb-2 last:border-0">
-                        <div>
-                          <p className="font-medium">{product.name}</p>
-                          <p className="text-sm text-muted-foreground">{product.category}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`font-medium ${
-                            product.stock === 0 ? 'text-red-600' : 
-                            product.stock < 5 ? 'text-amber-600' : 
-                            'text-muted-foreground'
-                          }`}>
-                            {product.stock} in stock
-                          </p>
-                        </div>
-                      </div>
-                    ))}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>User Activity</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-80">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={userActivity}
+                      margin={{
+                        top: 20,
+                        right: 30,
+                        left: 20,
+                        bottom: 5,
+                      }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="date" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="visits" fill="#94a3b8" name="Visits" />
+                      <Bar dataKey="purchases" fill="#f59e0b" name="Purchases" />
+                    </BarChart>
+                  </ResponsiveContainer>
                 </div>
-              ) : (
-                <p className="text-center text-muted-foreground py-4">All products have sufficient stock</p>
-              )}
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recent Orders</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {orders.length > 0 ? (
+                    <div className="space-y-4">
+                      {orders.slice(0, 5).map((order) => (
+                        <div key={order.id} className="flex justify-between items-center border-b pb-2 last:border-0">
+                          <div>
+                            <p className="font-medium">#{order.id} - {order.customerName}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {new Date(order.createdAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <p className="font-medium">KSH {(order.totalAmount * 150).toLocaleString()}</p>
+                            <span className={`text-xs ${
+                              order.status === 'completed' ? 'text-green-600' : 
+                              order.status === 'cancelled' ? 'text-red-600' : 
+                              'text-amber-600'
+                            }`}>
+                              {order.status}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-4">No orders yet</p>
+                  )}
+                </CardContent>
+              </Card>
+              
+              <Card>
+                <CardHeader>
+                  <CardTitle>Low Stock Products</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {lowStockItems > 0 ? (
+                    <div className="space-y-4">
+                      {products
+                        .filter(product => product.stock < 10)
+                        .slice(0, 5)
+                        .map((product) => (
+                          <div key={product.id} className="flex justify-between items-center border-b pb-2 last:border-0">
+                            <div>
+                              <p className="font-medium">{product.name}</p>
+                              <p className="text-sm text-muted-foreground">{product.category}</p>
+                            </div>
+                            <div className="text-right">
+                              <p className={`font-medium ${
+                                product.stock === 0 ? 'text-red-600' : 
+                                product.stock < 5 ? 'text-amber-600' : 
+                                'text-muted-foreground'
+                              }`}>
+                                {product.stock} in stock
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  ) : (
+                    <p className="text-center text-muted-foreground py-4">All products have sufficient stock</p>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </AdminLayout>

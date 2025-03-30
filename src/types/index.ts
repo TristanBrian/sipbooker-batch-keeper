@@ -36,3 +36,31 @@ export type User = {
   email: string;
   role: 'admin' | 'customer';
 };
+
+export interface MpesaPayment {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerPhone: string;
+  amount: number;
+  status: 'completed' | 'pending' | 'failed';
+  orderId?: string;
+  timestamp: string;
+}
+
+export interface PreOrder {
+  id: string;
+  productId: string;
+  productName: string;
+  customerId: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  depositAmount: number;
+  totalAmount: number;
+  paymentStatus: 'deposit_paid' | 'fully_paid' | 'pending';
+  paymentMethod: string;
+  expectedDate: string;
+  createdAt: string;
+  status: 'pending' | 'confirmed' | 'ready' | 'completed' | 'cancelled';
+}
