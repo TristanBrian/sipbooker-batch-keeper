@@ -1,6 +1,6 @@
 
 import { ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Package, 
@@ -10,6 +10,8 @@ import {
   Settings, 
   LogOut 
 } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { Button } from '@/components/ui/button';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -17,6 +19,8 @@ interface AdminLayoutProps {
 
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const location = useLocation();
+  const { logout } = useAuth();
+  const navigate = useNavigate();
   
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
@@ -26,6 +30,11 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: '/admin/customers', label: 'Customers', icon: <Users size={20} /> },
     { path: '/admin/settings', label: 'Settings', icon: <Settings size={20} /> },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <div className="flex min-h-screen bg-muted/40">
@@ -54,14 +63,24 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
           ))}
         </nav>
         
-        <div className="p-4 border-t border-sidebar-border">
-          <Link
-            to="/"
-            className="flex items-center space-x-3 px-3 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent/50"
+        <div className="p-4 border-t border-sidebar-border space-y-2">
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent/50"
+            onClick={() => navigate('/')}
           >
-            <LogOut size={20} />
-            <span>Exit Admin</span>
-          </Link>
+            <ShoppingCart size={20} className="mr-2" />
+            <span>View Store</span>
+          </Button>
+          
+          <Button
+            variant="ghost"
+            className="w-full justify-start text-sidebar-foreground hover:bg-sidebar-accent/50"
+            onClick={handleLogout}
+          >
+            <LogOut size={20} className="mr-2" />
+            <span>Logout</span>
+          </Button>
         </div>
       </aside>
       
