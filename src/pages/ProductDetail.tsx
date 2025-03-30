@@ -64,15 +64,21 @@ const ProductDetail = () => {
         <div className="container mx-auto px-4">
           <Breadcrumb className="mb-6">
             <BreadcrumbItem>
-              <BreadcrumbLink as={Link} to="/">Home</BreadcrumbLink>
+              <BreadcrumbLink>
+                <Link to="/">Home</Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink as={Link} to="/shop">Shop</BreadcrumbLink>
+              <BreadcrumbLink>
+                <Link to="/shop">Shop</Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink as={Link} to={`/shop/category/${product.category}`}>{product.category}</BreadcrumbLink>
+              <BreadcrumbLink>
+                <Link to={`/shop/category/${product.category}`}>{product.category}</Link>
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
