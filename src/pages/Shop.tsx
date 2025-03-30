@@ -37,18 +37,21 @@ const Shop = () => {
       
       <main className="flex-1 py-8">
         <div className="container mx-auto px-4">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-8">Shop Our Collection</h1>
+          <div className="mb-12">
+            <h1 className="text-4xl font-bold mb-4">Shop Our Collection</h1>
+            <p className="text-lg text-muted-foreground mb-8 max-w-3xl">
+              Explore our selection of premium spirits and liquors. Pre-book your favorite bottles or purchase directly from our inventory.
+            </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               <div className="col-span-1 md:col-span-2">
                 <div className="relative">
-                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
                   <Input
                     placeholder="Search spirits, wines, and more..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 h-12 bg-background border-amber-200 focus-visible:ring-amber-500"
                   />
                 </div>
               </div>
@@ -58,7 +61,7 @@ const Shop = () => {
                   value={categoryFilter} 
                   onValueChange={(value) => setCategoryFilter(value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="h-12 border-amber-200 focus:ring-amber-500">
                     <SelectValue placeholder="Category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -73,19 +76,48 @@ const Shop = () => {
             </div>
             
             {filteredProducts.length === 0 ? (
-              <div className="text-center py-12">
+              <div className="text-center py-16 bg-muted/30 rounded-lg">
                 <h3 className="text-xl font-medium mb-2">No products found</h3>
                 <p className="text-muted-foreground">
                   Try adjusting your search or filter criteria
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <p className="text-muted-foreground">Showing {filteredProducts.length} products</p>
+                  <p className="text-sm">
+                    <span className="font-medium">Currency:</span> Kenyan Shilling (KSH)
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {filteredProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
               </div>
             )}
+          </div>
+          
+          <div className="py-8 px-6 bg-amber-50 rounded-lg mb-12">
+            <h2 className="text-2xl font-bold mb-4">Pre-book Your Premium Selection</h2>
+            <p className="mb-4">
+              Reserved bottles are held for pickup at your chosen date and time. Payment is made at collection.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-semibold mb-2">Reserve Early</h3>
+                <p>Secure your favorite spirits before they sell out</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-semibold mb-2">Choose Your Date</h3>
+                <p>Select a convenient pickup time that works for you</p>
+              </div>
+              <div className="bg-white p-4 rounded shadow-sm">
+                <h3 className="font-semibold mb-2">Pay Later</h3>
+                <p>No payment needed until you collect your order</p>
+              </div>
+            </div>
           </div>
         </div>
       </main>

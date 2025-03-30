@@ -87,19 +87,24 @@ const ProductDetail = () => {
           </Breadcrumb>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="aspect-square rounded-lg overflow-hidden bg-muted">
+            <div className="aspect-square rounded-lg overflow-hidden bg-muted relative group">
               <img 
                 src={product.image} 
                 alt={product.name} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
+              {product.featured && (
+                <div className="absolute top-4 left-4 bg-amber-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                  Featured
+                </div>
+              )}
             </div>
             
             <div className="flex flex-col">
               <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
               <p className="text-sm text-muted-foreground mb-4">{product.category}</p>
               
-              <div className="text-2xl font-semibold mb-6">${product.price.toFixed(2)}</div>
+              <div className="text-2xl font-semibold mb-6">KSH {(product.price * 100).toLocaleString()}</div>
               
               <div className="mb-6">
                 <p className="text-md mb-4">{product.description}</p>
@@ -125,14 +130,16 @@ const ProductDetail = () => {
                       size="icon" 
                       onClick={() => handleQuantityChange(-1)}
                       disabled={quantity <= 1}
+                      className="hover:bg-muted/80"
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="w-12 text-center">{quantity}</span>
+                    <span className="w-12 text-center font-medium">{quantity}</span>
                     <Button 
                       variant="outline" 
                       size="icon" 
                       onClick={() => handleQuantityChange(1)}
+                      className="hover:bg-muted/80"
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
@@ -141,13 +148,13 @@ const ProductDetail = () => {
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button 
                       size="lg" 
-                      className="flex-1"
+                      className="flex-1 bg-amber-600 hover:bg-amber-700"
                       onClick={handleAddToCart}
                     >
                       <ShoppingCart className="mr-2 h-5 w-5" />
                       Add to Cart
                     </Button>
-                    <Button asChild size="lg" variant="outline" className="flex-1">
+                    <Button asChild size="lg" variant="outline" className="flex-1 border-amber-600 text-amber-600 hover:bg-amber-50">
                       <Link to={`/prebook/${product.id}`}>
                         <CalendarClock className="mr-2 h-5 w-5" />
                         Pre-book
@@ -175,7 +182,7 @@ const ProductDetail = () => {
           
           {relatedProducts.length > 0 && (
             <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6">You May Also Like</h2>
+              <h2 className="text-2xl font-bold mb-8 relative inline-block after:content-[''] after:absolute after:w-full after:h-1 after:bg-amber-600 after:left-0 after:bottom-0">You May Also Like</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {relatedProducts.map(product => (
                   <ProductCard key={product.id} product={product} />

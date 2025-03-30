@@ -83,14 +83,14 @@ const CartSidebar = () => {
             <p className="text-sm text-muted-foreground mb-4">
               Add items to your cart to see them here.
             </p>
-            <Button asChild>
+            <Button asChild className="bg-amber-600 hover:bg-amber-700">
               <Link to="/shop">Browse Products</Link>
             </Button>
           </div>
         ) : (
           <div className="space-y-4">
             {cartItems.map((item) => (
-              <div key={item.productId} className="flex items-start space-x-4 px-2">
+              <div key={item.productId} className="flex items-start space-x-4 px-2 hover:bg-muted/30 rounded-md p-2 transition-colors">
                 <div className="h-16 w-16 rounded overflow-hidden flex-shrink-0">
                   <img 
                     src={item.product.image} 
@@ -102,7 +102,7 @@ const CartSidebar = () => {
                   <h4 className="font-medium text-sm truncate">
                     {item.product.name}
                   </h4>
-                  <p className="text-sm text-muted-foreground">${item.product.price.toFixed(2)}</p>
+                  <p className="text-sm text-muted-foreground">KSH {(item.product.price * 100).toLocaleString()}</p>
                   <div className="flex items-center mt-1">
                     <Button 
                       variant="outline" 
@@ -125,7 +125,7 @@ const CartSidebar = () => {
                 </div>
                 <div className="flex flex-col items-end space-y-2">
                   <span className="font-medium">
-                    ${(item.product.price * item.quantity).toFixed(2)}
+                    KSH {((item.product.price * 100) * item.quantity).toLocaleString()}
                   </span>
                   <Button 
                     variant="ghost" 
@@ -148,17 +148,17 @@ const CartSidebar = () => {
           <div className="p-4 space-y-4">
             <div className="flex items-center justify-between font-medium">
               <span>Total</span>
-              <span>${cartTotal.toFixed(2)}</span>
+              <span>KSH {(cartTotal * 100).toLocaleString()}</span>
             </div>
             <Button 
-              className="w-full" 
+              className="w-full bg-amber-600 hover:bg-amber-700" 
               onClick={handleCheckout}
               disabled={checkingOut}
             >
               Checkout
             </Button>
             <Button 
-              className="w-full" 
+              className="w-full border-amber-600 text-amber-600 hover:bg-amber-50" 
               variant="outline"
               onClick={handlePrebook}
               disabled={checkingOut}
