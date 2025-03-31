@@ -39,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </h3>
         </Link>
         <p className="text-muted-foreground text-sm mb-1">{product.category}</p>
-        <p className="font-medium text-lg">KSH {(product.price * 100).toLocaleString()}</p>
+        <p className="font-medium text-lg">KSH {product.price.toLocaleString()}</p>
         <p className="text-sm mt-2 text-muted-foreground line-clamp-2">
           {product.description}
         </p>
