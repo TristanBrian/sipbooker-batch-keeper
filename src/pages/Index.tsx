@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -19,20 +18,20 @@ const Index = () => {
         {/* Enhanced Hero Section */}
         <section className="relative h-[600px] bg-wood-950 text-white overflow-hidden">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1613688270662-193e95268aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=85')] bg-cover bg-center opacity-60"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
           <div className="relative container mx-auto px-4 h-full flex flex-col justify-center items-start">
-            <span className="inline-block py-1 px-3 mb-4 bg-amber-600/90 text-white rounded-full text-sm font-medium tracking-wider">PREMIUM COLLECTION</span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-2xl leading-tight">
+            <span className="inline-block py-1 px-3 mb-4 bg-amber-600/90 text-white rounded-full text-sm font-medium tracking-wider shadow-md">PREMIUM COLLECTION</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 max-w-2xl leading-tight hero-text-glow">
               Experience Luxury with <span className="text-amber-500">Maybach Liquor</span>
             </h1>
             <p className="text-lg md:text-xl mb-8 max-w-xl text-gray-100">
               Indulge in our curated selection of world-class spirits, rare finds, and exclusive limited editions with doorstep delivery.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg" className="bg-wood-800 hover:bg-wood-900 border border-amber-500/50 text-white shadow-lg">
+              <Button asChild size="xl" variant="hero" className="btn-hover-effect">
                 <Link to="/shop" className="flex items-center gap-2">Shop Collection <ArrowRight className="h-4 w-4" /></Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 shadow-lg">
+              <Button asChild size="xl" variant="heroOutline" className="btn-hover-effect">
                 <Link to="/prebook">Reserve Premium</Link>
               </Button>
             </div>
@@ -106,7 +105,7 @@ const Index = () => {
                 <h2 className="text-3xl font-bold">Featured Collection</h2>
                 <p className="text-muted-foreground mt-2">Handpicked premium selections for discerning tastes</p>
               </div>
-              <Button asChild variant="outline" className="border-amber-600 text-amber-600 hover:bg-amber-50">
+              <Button asChild variant="premium" className="border-amber-600">
                 <Link to="/shop" className="flex items-center gap-2">View All <ArrowRight className="h-4 w-4" /></Link>
               </Button>
             </div>
@@ -119,7 +118,7 @@ const Index = () => {
           </div>
         </section>
         
-        {/* Testimonial Section - New addition */}
+        {/* Testimonial Section */}
         <section className="py-20 bg-wood-900 text-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
@@ -192,10 +191,10 @@ const Index = () => {
               Whether you're a casual enthusiast or a serious collector, we have the perfect spirits waiting for you.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg" className="bg-wood-900 hover:bg-wood-950 border border-amber-500/50 shadow-lg">
+              <Button asChild size="xl" variant="hero" className="bg-wood-900 hover:bg-wood-950 border border-amber-500/50 shadow-lg">
                 <Link to="/shop">Browse Collection</Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 shadow-lg">
+              <Button asChild size="xl" variant="heroOutline" className="border-2 border-white text-white hover:bg-white/10 shadow-lg">
                 <Link to="/admin">Admin Dashboard</Link>
               </Button>
             </div>
