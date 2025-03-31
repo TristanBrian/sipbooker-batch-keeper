@@ -1,4 +1,3 @@
-
 import { Product, Order, User } from '@/types';
 
 export const products: Product[] = [
@@ -7,7 +6,7 @@ export const products: Product[] = [
     name: 'Macallan 12 Year',
     category: 'Whisky',
     description: 'Single malt Scotch whisky aged for 12 years with notes of vanilla and oak.',
-    price: 89.99,
+    price: 9500,
     stock: 24,
     image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
     featured: true
@@ -17,7 +16,7 @@ export const products: Product[] = [
     name: 'Hendrick\'s Gin',
     category: 'Gin',
     description: 'Scottish gin infused with rose and cucumber.',
-    price: 34.99,
+    price: 3700,
     stock: 42,
     image: 'https://images.unsplash.com/photo-1543253687-c931c8e01820?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
     featured: true
@@ -27,16 +26,16 @@ export const products: Product[] = [
     name: 'Grey Goose Vodka',
     category: 'Vodka',
     description: 'Premium French vodka made from high-quality wheat.',
-    price: 29.99,
+    price: 3200,
     stock: 36,
-    image: 'https://images.unsplash.com/photo-1617171544581-28a5b06b5a9a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1585955345357-1b941add8688?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '4',
     name: 'Don Julio 1942',
     category: 'Tequila',
     description: 'Luxury añejo tequila aged for at least two and a half years.',
-    price: 149.99,
+    price: 15600,
     stock: 15,
     image: 'https://images.unsplash.com/photo-1581704976910-4d5cb3a91288?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
     featured: true
@@ -46,7 +45,7 @@ export const products: Product[] = [
     name: 'Veuve Clicquot',
     category: 'Champagne',
     description: 'Brut Yellow Label champagne with apple and citrus notes.',
-    price: 59.99,
+    price: 6200,
     stock: 28,
     image: 'https://images.unsplash.com/photo-1594372830925-9aea3bd60a0a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
@@ -55,16 +54,16 @@ export const products: Product[] = [
     name: 'Lagavulin 16 Year',
     category: 'Whisky',
     description: 'Islay single malt Scotch whisky with intense peat smoke.',
-    price: 94.99,
+    price: 9900,
     stock: 19,
-    image: 'https://images.unsplash.com/photo-1589111538098-3cef0eda6e4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+    image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
   {
     id: '7',
     name: 'Patrón Silver',
     category: 'Tequila',
     description: 'Premium silver tequila with citrus and light pepper notes.',
-    price: 44.99,
+    price: 4700,
     stock: 32,
     image: 'https://images.unsplash.com/photo-1592861611585-c8a97ef2b97f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
@@ -73,10 +72,46 @@ export const products: Product[] = [
     name: 'Moët & Chandon',
     category: 'Champagne',
     description: 'Imperial Brut champagne with vibrant fruitiness.',
-    price: 49.99,
+    price: 5200,
     stock: 24,
     image: 'https://images.unsplash.com/photo-1627608238900-b95c1be4e5df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
   },
+  {
+    id: '9',
+    name: 'Jameson Irish Whiskey',
+    category: 'Whisky',
+    description: 'Triple-distilled smooth Irish whiskey with perfect balance of spicy, nutty and vanilla notes.',
+    price: 2800,
+    stock: 45,
+    image: 'https://images.unsplash.com/photo-1619451050621-83cb7aada2d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '10',
+    name: 'Bombay Sapphire',
+    category: 'Gin',
+    description: 'Premium London Dry Gin infused with 10 exotic botanicals.',
+    price: 2900,
+    stock: 38,
+    image: 'https://images.unsplash.com/photo-1572590016064-3e6ae9c04947?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '11',
+    name: 'Johnnie Walker Blue Label',
+    category: 'Whisky',
+    description: 'Luxury blended Scotch whisky with layers of honey, spice, and dried fruits.',
+    price: 18500,
+    stock: 12,
+    image: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: '12',
+    name: 'Dom Pérignon',
+    category: 'Champagne',
+    description: 'Prestigious vintage champagne with complex notes of brioche, almond, and tropical fruit.',
+    price: 21000,
+    stock: 8,
+    image: 'https://images.unsplash.com/photo-1592465873699-a3add5a4d0eb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80'
+  }
 ];
 
 export const orders: Order[] = [

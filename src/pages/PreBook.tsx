@@ -263,7 +263,7 @@ const PreBook = () => {
                           <div>
                             <h4 className="font-medium">{product.name}</h4>
                             <p className="text-sm text-muted-foreground">{product.category}</p>
-                            <p className="font-medium mt-1">${product.price.toFixed(2)}</p>
+                            <p className="font-medium mt-1">KSH {product.price.toLocaleString()}</p>
                           </div>
                         </div>
                       </div>
@@ -281,10 +281,10 @@ const PreBook = () => {
                             <div>
                               <h4 className="font-medium">{item.product.name}</h4>
                               <p className="text-sm text-muted-foreground">
-                                {item.quantity} x ${item.product.price.toFixed(2)}
+                                {item.quantity} x KSH {item.product.price.toLocaleString()}
                               </p>
                               <p className="font-medium mt-1">
-                                ${(item.quantity * item.product.price).toFixed(2)}
+                                KSH {(item.quantity * item.product.price).toLocaleString()}
                               </p>
                             </div>
                           </div>
@@ -300,12 +300,12 @@ const PreBook = () => {
                     <CardFooter className="flex justify-between border-t pt-4">
                       <span className="font-medium">Total</span>
                       <span className="font-bold">
-                        ${product 
-                          ? product.price.toFixed(2)
+                        KSH {product 
+                          ? product.price.toLocaleString()
                           : cartItems.reduce(
                               (total, item) => total + (item.product.price * item.quantity),
                               0
-                            ).toFixed(2)}
+                            ).toLocaleString()}
                       </span>
                     </CardFooter>
                   )}
