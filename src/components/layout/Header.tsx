@@ -37,7 +37,7 @@ export const Header = () => {
             </Button>
           )}
           <Link to="/" className="flex items-center">
-            <span className="text-xl font-bold text-primary">Spirit Vault</span>
+            <span className="text-xl font-bold text-primary">Maybach Liquor</span>
           </Link>
         </div>
 
