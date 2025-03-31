@@ -104,7 +104,7 @@ const ProductDetail = () => {
               <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
               <p className="text-sm text-muted-foreground mb-4">{product.category}</p>
               
-              <div className="text-2xl font-semibold mb-6">KSH {(product.price * 100).toLocaleString()}</div>
+              <div className="text-2xl font-semibold mb-6">KSH {product.price.toLocaleString()}</div>
               
               <div className="mb-6">
                 <p className="text-md mb-4">{product.description}</p>
@@ -177,6 +177,26 @@ const ProductDetail = () => {
                   </Link>
                 </Button>
               )}
+
+              <div className="mt-8 p-4 bg-slate-50 rounded-lg">
+                <h3 className="font-semibold text-lg mb-3">Checkout Options</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start">
+                    <ShoppingCart className="h-5 w-5 mt-0.5 mr-3 text-amber-600" />
+                    <div>
+                      <p className="font-medium">Express Checkout</p>
+                      <p className="text-sm text-muted-foreground">Add to cart and proceed to checkout</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <CalendarClock className="h-5 w-5 mt-0.5 mr-3 text-amber-600" />
+                    <div>
+                      <p className="font-medium">Pre-book for Later</p>
+                      <p className="text-sm text-muted-foreground">Reserve your product for future pickup</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           

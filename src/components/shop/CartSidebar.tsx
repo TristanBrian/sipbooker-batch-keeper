@@ -102,7 +102,7 @@ const CartSidebar = () => {
                   <h4 className="font-medium text-sm truncate">
                     {item.product.name}
                   </h4>
-                  <p className="text-sm text-muted-foreground">KSH {(item.product.price * 100).toLocaleString()}</p>
+                  <p className="text-sm text-muted-foreground">KSH {item.product.price.toLocaleString()}</p>
                   <div className="flex items-center mt-1">
                     <Button 
                       variant="outline" 
@@ -125,7 +125,7 @@ const CartSidebar = () => {
                 </div>
                 <div className="flex flex-col items-end space-y-2">
                   <span className="font-medium">
-                    KSH {((item.product.price * 100) * item.quantity).toLocaleString()}
+                    KSH {(item.product.price * item.quantity).toLocaleString()}
                   </span>
                   <Button 
                     variant="ghost" 
@@ -148,7 +148,7 @@ const CartSidebar = () => {
           <div className="p-4 space-y-4">
             <div className="flex items-center justify-between font-medium">
               <span>Total</span>
-              <span>KSH {(cartTotal * 100).toLocaleString()}</span>
+              <span>KSH {cartTotal.toLocaleString()}</span>
             </div>
             <Button 
               className="w-full bg-amber-600 hover:bg-amber-700" 
