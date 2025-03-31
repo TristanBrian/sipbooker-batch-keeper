@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import * as z from "zod";
 import { Phone, CreditCard, CheckCircle2, ArrowLeft, ShoppingBag, CalendarClock } from "lucide-react";
 
@@ -262,16 +262,17 @@ const Checkout = () => {
               <CardContent>
                 <form onSubmit={handleMpesaSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <FormLabel>M-Pesa Number</FormLabel>
+                    <FormLabel htmlFor="mpesa-number">M-Pesa Number</FormLabel>
                     <Input
+                      id="mpesa-number"
                       type="tel"
                       placeholder="254712345678"
                       value={mpesaNumber}
                       onChange={(e) => setMpesaNumber(e.target.value)}
                     />
-                    <FormDescription>
+                    <p className="text-sm text-muted-foreground">
                       Enter your M-Pesa number starting with country code (254)
-                    </FormDescription>
+                    </p>
                   </div>
                   <Button 
                     type="submit" 
