@@ -11,9 +11,14 @@ interface AuthContextType {
   signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAdmin: () => boolean;
+  updateUser: (userData: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
+
+// Demo credentials for testing (in a real app, these would be in a secure database)
+const DEMO_ADMIN = { email: 'admin@maybachliquor.com', password: 'admin123' };
+const DEMO_USER = { email: 'user@example.com', password: 'user123' };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -21,13 +26,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Check for saved auth on mount
   useEffect(() => {
-    const savedUser = localStorage.getItem('spiritVaultUser');
+    const savedUser = localStorage.getItem('maybachLiquorUser');
     if (savedUser) {
       try {
         setUser(JSON.parse(savedUser));
       } catch (error) {
         console.error('Failed to parse saved user', error);
-        localStorage.removeItem('spiritVaultUser');
+        localStorage.removeItem('maybachLiquorUser');
       }
     }
     setIsLoading(false);
@@ -37,12 +42,48 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // Simulating API request delay
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    // In a real app, you would validate against backend
+    // Special case for admin login
+    if (email === DEMO_ADMIN.email && password === DEMO_ADMIN.password) {
+      const adminUser: User = {
+        id: 'admin-1',
+        name: 'Admin User',
+        email: DEMO_ADMIN.email,
+        role: 'admin',
+      };
+      
+      setUser(adminUser);
+      localStorage.setItem('maybachLiquorUser', JSON.stringify(adminUser));
+      toast({
+        title: "Admin login successful",
+        description: "Welcome to the admin dashboard!",
+      });
+      return true;
+    }
+    
+    // Demo user login
+    if (email === DEMO_USER.email && password === DEMO_USER.password) {
+      const regularUser: User = {
+        id: 'user-1',
+        name: 'Demo User',
+        email: DEMO_USER.email,
+        role: 'customer',
+      };
+      
+      setUser(regularUser);
+      localStorage.setItem('maybachLiquorUser', JSON.stringify(regularUser));
+      toast({
+        title: "Login successful",
+        description: `Welcome back!`,
+      });
+      return true;
+    }
+    
+    // Check in the existing users array
     const foundUser = users.find(u => u.email === email);
     
     if (foundUser) {
       setUser(foundUser);
-      localStorage.setItem('spiritVaultUser', JSON.stringify(foundUser));
+      localStorage.setItem('maybachLiquorUser', JSON.stringify(foundUser));
       toast({
         title: "Login successful",
         description: `Welcome back, ${foundUser.name}!`,
@@ -86,7 +127,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     // Set as current user
     setUser(newUser);
-    localStorage.setItem('spiritVaultUser', JSON.stringify(newUser));
+    localStorage.setItem('maybachLiquorUser', JSON.stringify(newUser));
     
     toast({
       title: "Account created",
@@ -97,7 +138,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('spiritVaultUser');
+    localStorage.removeItem('maybachLiquorUser');
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",
@@ -108,8 +149,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return user?.role === 'admin';
   };
 
+  const updateUser = (userData: Partial<User>) => {
+    if (!user) return;
+    
+    const updatedUser = { ...user, ...userData };
+    setUser(updatedUser);
+    localStorage.setItem('maybachLiquorUser', JSON.stringify(updatedUser));
+    
+    // Also update in the users array if it exists there
+    const userIndex = users.findIndex(u => u.id === user.id);
+    if (userIndex >= 0) {
+      users[userIndex] = updatedUser;
+    }
+    
+    toast({
+      title: "Profile updated",
+      description: "Your profile has been updated successfully",
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, signup, logout, isAdmin }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      isLoading, 
+      login, 
+      signup, 
+      logout, 
+      isAdmin,
+      updateUser
+    }}>
       {children}
     </AuthContext.Provider>
   );

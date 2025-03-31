@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +26,11 @@ const formSchema = z.object({
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  
+  // Get the redirect path from location state, or default to home
+  const from = location.state?.from?.pathname || "/";
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,7 +45,8 @@ const Login = () => {
     try {
       const success = await login(values.email, values.password);
       if (success) {
-        navigate("/");
+        // Redirect to the page they were trying to access
+        navigate(from);
       }
     } finally {
       setIsLoading(false);
@@ -52,7 +57,7 @@ const Login = () => {
     <div className="flex items-center justify-center min-h-screen bg-muted/30 px-4">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-amber-600">Login to Spirit Vault</CardTitle>
+          <CardTitle className="text-2xl font-bold text-amber-600">Login to Maybach Liquor</CardTitle>
           <CardDescription>
             Enter your credentials to access your account
           </CardDescription>

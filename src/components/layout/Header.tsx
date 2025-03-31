@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Menu, User, LogIn, LogOut } from 'lucide-react';
+import { ShoppingCart, Menu, User, LogIn, LogOut, Settings, ClipboardList } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
   DropdownMenu, 
@@ -78,7 +78,12 @@ export const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
                   <User className="h-5 w-5" />
-                  <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-green-500" />
+                  {isAdmin() && (
+                    <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-amber-500" />
+                  )}
+                  {!isAdmin() && (
+                    <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-green-500" />
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
@@ -86,19 +91,28 @@ export const Header = () => {
                   <div className="flex flex-col">
                     <span>{user.name}</span>
                     <span className="text-xs text-muted-foreground">{user.email}</span>
+                    {isAdmin() && (
+                      <span className="text-xs font-semibold text-amber-600">Administrator</span>
+                    )}
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => navigate('/profile')}>
+                  <User className="mr-2 h-4 w-4" />
                   Profile
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/orders')}>
+                  <ClipboardList className="mr-2 h-4 w-4" />
                   My Orders
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/profile/edit')}>
+                  <Settings className="mr-2 h-4 w-4" />
+                  Settings
                 </DropdownMenuItem>
                 {isAdmin() && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={() => navigate('/admin')}>
+                    <DropdownMenuItem onClick={() => navigate('/admin')} className="text-amber-600">
                       Admin Dashboard
                     </DropdownMenuItem>
                   </>
@@ -114,14 +128,6 @@ export const Header = () => {
             <Link to="/login">
               <Button variant="default" size="sm" className="flex items-center">
                 <LogIn className="mr-2 h-4 w-4" /> Login
-              </Button>
-            </Link>
-          )}
-          
-          {isAdmin() && user && (
-            <Link to="/admin">
-              <Button variant="outline" size="sm" className="hidden md:flex">
-                Admin
               </Button>
             </Link>
           )}
@@ -147,16 +153,24 @@ export const Header = () => {
               </Link>
             )}
             {user ? (
-              <button 
-                onClick={() => {
-                  handleLogout();
-                  setIsNavOpen(false);
-                }}
-                className="py-2 text-sm font-medium text-left hover:text-red-500"
-              >
-                <LogOut className="mr-2 inline-block h-4 w-4" />
-                Logout
-              </button>
+              <>
+                <Link to="/profile" className="py-2 text-sm font-medium hover:text-primary" onClick={() => setIsNavOpen(false)}>
+                  Profile
+                </Link>
+                <Link to="/orders" className="py-2 text-sm font-medium hover:text-primary" onClick={() => setIsNavOpen(false)}>
+                  My Orders
+                </Link>
+                <button 
+                  onClick={() => {
+                    handleLogout();
+                    setIsNavOpen(false);
+                  }}
+                  className="py-2 text-sm font-medium text-left hover:text-red-500"
+                >
+                  <LogOut className="mr-2 inline-block h-4 w-4" />
+                  Logout
+                </button>
+              </>
             ) : (
               <Link to="/login" className="py-2 text-sm font-medium hover:text-primary" onClick={() => setIsNavOpen(false)}>
                 Login
